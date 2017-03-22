@@ -36,44 +36,6 @@
 
 
     $group = array();
-//$shopping_cart = [
-//    1 => [
-//        'type' => 'multi', //multi or single,
-//        'items' => [
-//            [
-//                'diameter' => 1,
-//                'hardware' => 2,
-//                'type_id' => 22,
-//                'qty' => 2
-//            ],
-//            [
-//                'diameter' => 3,
-//                'hardware' => 5,
-//                'type_id' => 11,
-//                'qty' => 23
-//            ],
-//        ]
-//    ],
-//    2 => [
-//        'type' => 'single',
-//        'qty' => 1
-//    ],
-//    3 => [
-//        'type' => 'single',
-//        'qty' => 2,
-//        'hardware' => 11 //optional
-//    ]
-//];
-//foreach($shopping_cart as $product_id => $product) {
-//    if($product['type'] == 'multi') {
-//            foreach($product['items'] as $item) {
-//                $diameter = $item['diameter'];
-//            }
-//    }
-//    else {
-//        $qty = $product['qty'];
-//    }
-//}
 
 
 if( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
@@ -481,15 +443,12 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
                 noOptionSelected($(this).data('group-id'));
             }
             else {
-
                 qty.removeAttribute('disabled');
                 if(qty.selectedIndex == 0) {
                     qty.selectedIndex = 1;
                 }
-                console.log('qty dropdown: '+ qty.selectedIndex)
                 calculateOtherPrice($(this).data('group-id'));
             }
-
         });
         $('.other-qty').on('change', function(){
             calculateOtherPrice($(this).data('group-id'));
@@ -502,13 +461,10 @@ function calculate_price(groupid){
     $(selector).each(function() {
            var price = Number($(this).find('option:selected').data('price'));
         if(price){
-            //console.log('price',price);
             total += price;
         }
-            //console.log($(this).data('price'));
     });
     var qty = $('#qty_' + groupid).val();
-    //console.log('total',total,'qty',qty);
     return (total*qty).toFixed(2);
 }
 
@@ -524,11 +480,10 @@ function calculateOtherPrice(groupid) {
     var qty = parseInt($('#qty_' + groupid).val());
     var hardware = $('#hardware_' + groupid+'>option:selected');
 
-    console.log('price: ' + price);
-    console.log('qty: ' + qty);
-    console.log('hd: ' + hardware.attr('data-price'));
+    //console.log('price: ' + price);
+    //console.log('qty: ' + qty);
+    //console.log('hd: ' + hardware.attr('data-price'));
     //var hardware = document.getElementById('#hardware' + groupid);
-
 
     var total = (parseFloat(hardware.attr('data-price'))  * qty).toFixed(2);
 
@@ -536,6 +491,5 @@ function calculateOtherPrice(groupid) {
 }
 function noOptionSelected(groupid) {
     $('#productprice_' + groupid).html('Select an option');
-
 }
 </script>
